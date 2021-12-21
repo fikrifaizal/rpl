@@ -1,22 +1,4 @@
 const dynamicCacheName = 'site-dynamic-v1';
-const assets = [
-  '/',
-  '/index.html',
-  '/assets/js/ui.js',
-  '/assets/css/main.css',
-  '/assets/images/background-home.jpg',
-  'https://fonts.googleapis.com/css?family=Lato:300,400,700',
-];
-
-// install event
-self.addEventListener('install', evt => {
-  evt.waitUntil(
-    caches.open(staticCacheName).then((cache) => {
-      console.log('caching shell assets');
-      cache.addAll(assets);
-    })
-  );
-});
 
 // activate event
 self.addEventListener('activate', evt => {
