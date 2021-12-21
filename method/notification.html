@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Geo-Location</title>
+    <title>Notification</title>
 
     <!-- panggil css -->
     <link rel="stylesheet" href="/assets/css/main.css">
@@ -19,11 +19,11 @@
   
         <a class="btn btn-danger" role="button" onclick="getNotification()">Cek Notifikasi</a><br>
         
-        <p>Sumber: https://www.simicart.com/blog/pwa-geolocation/</p>
+        <p>Sumber: https://developers.google.com/web/ilt/pwa/introduction-to-push-notifications</p>
       </div>      
     </div>
 
-    <!-- Geo-location method -->
+    <!-- method -->
     <script>
 
       function getNotification() {
@@ -34,7 +34,7 @@
           navigator.serviceWorker.getRegistration().then(function(reg) {
             var options = {
               body: 'Here is a notification body!',
-              icon: 'images/example.png',
+              icon: '/assets/images/notif.png',
               vibrate: [100, 50, 100],
               data: {
                 dateOfArrival: Date.now(),

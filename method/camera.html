@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Geo-Location</title>
+    <title>Camera</title>
     <style>
       .videoElement {
         width: 500px;
@@ -25,26 +25,24 @@
         <h3>Notification</h3>
   
         <video autoplay="true" id="videoElement"></video>
-        <a class="btn btn-danger" role="button" onclick="getNotification()">Cari Lokasi</a><br>
+
+        <a class="btn btn-danger" role="button" onclick="getAccess()">Get Access</a><br>
         
         <p>Sumber: https://www.simicart.com/blog/pwa-geolocation/</p>
-      </div>      
+      </div>
     </div>
 
-    <!-- Geo-location method -->
+    <!-- method -->
     <script>
       var video = document.querySelector("#videoElement");
       
-      function getNotification() {
+      function getAccess() {
         if (navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(showPosition);
         } else {
           x.innerHTML = "Geolocation is not supported by this browser.";
         }
       }
-      Notification.requestPermission(function(status) {
-        console.log('Notification permission status:', status);
-      });
     </script>
 
     <!-- Javascript Support -->
