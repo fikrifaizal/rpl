@@ -2,6 +2,13 @@
 <html lang="en">
   <head>
     <title>Geo-Location</title>
+    <style>
+      .videoElement {
+        width: 500px;
+        height: 375px;
+        background-color: #666;
+      }
+    </style>
 
     <!-- panggil css -->
     <link rel="stylesheet" href="/assets/css/main.css">
@@ -15,11 +22,10 @@
       <a class="btn btn-primary" href="/index.html" role="button">Kembali</a><br>
 
       <div class="text-center">
-        <h3>Geo-location</h3>
+        <h3>Notification</h3>
   
-        <a class="btn btn-danger" role="button" onclick="getLocation()">Cari Lokasi</a><br>
-    
-        <h4 id="demo"></h4><br>
+        <video autoplay="true" id="videoElement"></video>
+        <a class="btn btn-danger" role="button" onclick="getNotification()">Cari Lokasi</a><br>
         
         <p>Sumber: https://www.simicart.com/blog/pwa-geolocation/</p>
       </div>      
@@ -27,20 +33,18 @@
 
     <!-- Geo-location method -->
     <script>
-      var x = document.getElementById("demo");
-
-      function getLocation() {
+      var video = document.querySelector("#videoElement");
+      
+      function getNotification() {
         if (navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(showPosition);
         } else {
           x.innerHTML = "Geolocation is not supported by this browser.";
         }
       }
-
-      function showPosition(position) {
-        x.innerHTML = "garis lintang: " + position.coords.latitude +
-          "<br>garis bujur: " + position.coords.longitude;
-      }
+      Notification.requestPermission(function(status) {
+        console.log('Notification permission status:', status);
+      });
     </script>
 
     <!-- Javascript Support -->
