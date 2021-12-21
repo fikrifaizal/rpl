@@ -12,30 +12,32 @@
 
   <body>
     <div class="content">
-      <a class="btn btn-primary" href="/index.html" role="button">Kembali</a>
+      <a class="btn btn-primary" href="/index.html" role="button">Kembali</a><br>
 
-      <h3>Click the button to get your coordinates.</h3>
+      <div class="text-center">
+        <h3>Click the button to get your coordinates.</h3>
   
-      <a class="btn btn-danger" role="button" onclick="getLocation()">Cari Lokasi</a>
-  
-      <h4 id="demo"></h4>
+        <a class="btn btn-danger" role="button" onclick="getLocation()">Cari Lokasi</a>
+    
+        <h4 id="demo"></h4>
 
-      <script>
-        var x = document.getElementById("demo");
-  
-        function getLocation() {
-          if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(showPosition);
-          } else {
-            x.innerHTML = "Geolocation is not supported by this browser.";
+        <script>
+          var x = document.getElementById("demo");
+    
+          function getLocation() {
+            if (navigator.geolocation) {
+              navigator.geolocation.getCurrentPosition(showPosition);
+            } else {
+              x.innerHTML = "Geolocation is not supported by this browser.";
+            }
           }
-        }
-  
-        function showPosition(position) {
-          x.innerHTML = "garis lintang: " + position.coords.latitude +
-            "<br>garis bujur: " + position.coords.longitude;
-        }
-      </script>
+    
+          function showPosition(position) {
+            x.innerHTML = "garis lintang: " + position.coords.latitude +
+              "<br>garis bujur: " + position.coords.longitude;
+          }
+        </script>
+      </div>      
     </div>
 
     <!-- Javascript Support -->
