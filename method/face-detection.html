@@ -24,6 +24,7 @@
       <div class="text-center">
         <h3>Face Detection</h3>
   
+        <a class="btn btn-danger" role="button" onclick="startVideo()">Open Camera</a><br>
         <video autoplay muted id="videoElement"></video><br>
         
         <p>Sumber: https://developers.google.com/web/ilt/pwa/introduction-to-push-notifications</p>
@@ -42,7 +43,7 @@
       ]).then(startVideo)
 
       function startVideo() {
-        navigator.getUserMedia(
+        navigator.mediaDevices.getUserMedia(
           { video: {} },
           stream => video.srcObject = stream,
           err => console.error(err)
