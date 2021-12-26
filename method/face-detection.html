@@ -43,11 +43,15 @@
       ]).then(startVideo)
 
       function startVideo() {
-        navigator.mediaDevices.getUserMedia(
-          { video: {} },
-          stream => video.srcObject = stream,
-          err => console.error(err)
-        )
+        if (navigator.mediaDevices.getUserMedia) {
+          navigator.mediaDevices.getUserMedia({
+            video: true
+          }).then(function (stream) {
+            video.srcObject = stream;
+          }).catch(function (err0r) {
+            x.innerHTML = "Something went wrong!";
+          });
+        }
       }
 
       video.addEventListener('play', () => {
