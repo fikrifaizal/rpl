@@ -25,6 +25,7 @@
         <h3>Camera</h3>
 
         <h4 id="demo"></h4><br>
+        <a class="btn btn-danger" role="button" onclick="startVideo()">Open Camera</a><br>
         <video autoplay="true" id="videoElement"></video><br>
         
         <p>Sumber 1: https://www.simicart.com/blog/pwa-camera-access/</p>
@@ -37,14 +38,16 @@
       var video = document.querySelector("#videoElement");
       var x = document.getElementById("demo");
 
-      if (navigator.mediaDevices.getUserMedia) {
-        navigator.mediaDevices.getUserMedia({
-          video: true
-        }).then(function (stream) {
-          video.srcObject = stream;
-        }).catch(function (err0r) {
-          x.innerHTML = "Something went wrong!";
-        });
+      function startVideo() {
+        if (navigator.mediaDevices.getUserMedia) {
+          navigator.mediaDevices.getUserMedia({
+            video: true
+          }).then(function (stream) {
+            video.srcObject = stream;
+          }).catch(function (err0r) {
+            x.innerHTML = "Something went wrong!";
+          });
+        }
       }
     </script>
 
