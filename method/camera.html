@@ -22,26 +22,29 @@
       <a class="btn btn-primary" href="/index.html" role="button">Kembali</a><br>
 
       <div class="text-center">
-        <h3>Notification</h3>
-  
-        <video autoplay="true" id="videoElement"></video>
+        <h3>Camera</h3>
 
-        <a class="btn btn-danger" role="button" onclick="getAccess()">Get Access</a><br>
+        <h4 id="demo"></h4><br>
+        <video autoplay="true" id="videoElement"></video><br>
         
-        <p>Sumber: https://www.simicart.com/blog/pwa-geolocation/</p>
+        <p>Sumber 1: https://www.simicart.com/blog/pwa-camera-access/</p>
+        <p>Sumber 2: https://developer.mozilla.org/en-US/docs/Web/API/Navigator/getUserMedia?retiredLocale=id</p>
       </div>
     </div>
 
     <!-- method -->
     <script>
       var video = document.querySelector("#videoElement");
-      
-      function getAccess() {
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(showPosition);
-        } else {
-          x.innerHTML = "Geolocation is not supported by this browser.";
-        }
+      var x = document.getElementById("demo");
+
+      if (navigator.mediaDevices.getUserMedia) {
+        navigator.mediaDevices.getUserMedia({
+          video: true
+        }).then(function (stream) {
+          video.srcObject = stream;
+        }).catch(function (err0r) {
+          x.innerHTML = "Something went wrong!";
+        });
       }
     </script>
 
