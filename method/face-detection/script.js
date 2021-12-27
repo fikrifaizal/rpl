@@ -1,24 +1,23 @@
 let video = document.querySelector("#videoElement");
 let x = document.getElementById("demo");
 
-function startVideo() {
-  if (navigator.mediaDevices.getUserMedia) {
-    navigator.mediaDevices.getUserMedia({
-      video: true
-    }).then(function (stream) {
-      video.srcObject = stream;
-    }).catch(function (err0r) {
-      x.innerHTML = "Something went wrong!";
-    });
-  }
-}
-
-// library blazeface
-
 let model;
 // declare a canvas variable and get its context
 let canvas = document.getElementById("canvas");
 let ctx = canvas.getContext("2d");
+
+const setupCamera = () => {
+  navigator.mediaDevices
+    .getUserMedia({
+      video: { width: 600, height: 400 },
+      audio: false,
+    })
+    .then((stream) => {
+      video.srcObject = stream;
+    }).catch(function (err0r) {
+      x.innerHTML = "Something went wrong!";
+    });
+};
 
 const detectFaces = async () => {
   const prediction = await model.estimateFaces(video, false);
@@ -35,7 +34,7 @@ const detectFaces = async () => {
     ctx.lineWidth = "4";
     ctx.strokeStyle = "blue";
     // the last two arguments are width and height
-    // since blazeface returned only the coordinates,
+    // since blazeface returned only the coordinates, 
     // we can find the width and height by subtracting them.
     ctx.rect(
       pred.topLeft[0],
@@ -54,6 +53,7 @@ const detectFaces = async () => {
   });
 };
 
+setupCamera();
 video.addEventListener("loadeddata", async () => {
   model = await blazeface.load();
   // call detect faces every 100 milliseconds or 10 times every second
