@@ -27,25 +27,18 @@
           <li>Z-axis: <span id="Gyroscope_z">0</span><span>&deg;/s</span></li>
         </ul>
         
-        <p>Sumber: https://www.simicart.com/blog/pwa-geolocation/</p>
+        <p>Sumber: https://developer.mozilla.org/en-US/docs/Web/API/DeviceMotionEvent/rotationRate#syntax</p>
       </div>      
     </div>
 
     <!-- method -->
-    <script>
-      // function handleOrientation(event) {
-      // 	updateFieldIfNotNull("Orientation_a", event.alpha);
-      // 	updateFieldIfNotNull("Orientation_b", event.beta);
-      // 	updateFieldIfNotNull("Orientation_g", event.gamma);
-      // 	incrementEventCount();
-      // }
-  
+    <script>  
       function incrementEventCount() {
         let counterElement = document.getElementById("num-observed-events");
         let eventCount = parseInt(counterElement.innerHTML);
         counterElement.innerHTML = eventCount + 1;
       }
-      
+
       function updateFieldIfNotNull(fieldName, value, precision = 10) {
         if (value != null) document.getElementById(fieldName).innerHTML = value.toFixed(precision);
       }
