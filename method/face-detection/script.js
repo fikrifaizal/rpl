@@ -1,4 +1,4 @@
-let video = document.getElementById("#videoElement");
+let video = document.querySelector("#videoElement");
 let x = document.getElementById("demo");
 
 function startVideo() {
