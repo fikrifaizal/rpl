@@ -88,13 +88,13 @@
         }
   
         if (is_running) {
-          window.removeEventListener("deviceorientation", handleOrientation);
+          window.removeEventListener("devicemotion", handleMotion);
           demo_button.innerHTML = "Start demo";
           demo_button.classList.add("btn-success");
           demo_button.classList.remove("btn-danger");
           is_running = false;
         } else {
-          window.addEventListener("deviceorientation", handleOrientation);
+          window.addEventListener("devicemotion", handleMotion);
           document.getElementById("start_demo").innerHTML = "Stop demo";
           demo_button.classList.remove("btn-success");
           demo_button.classList.add("btn-danger");
