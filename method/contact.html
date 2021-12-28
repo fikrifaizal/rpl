@@ -18,7 +18,7 @@
 
       <div class="text-center">
         <h3>Contact Book</h3>
-        <a class="btn btn-danger" role="button" id="find-me">Cari Lokasi</a><br>    
+        <a class="btn btn-danger" role="button" onclick="readContacts()">Coba</a><br>    
         <h3>Firefox tidak men-support akses Contact Book</h3>
         
         <p>Sumber 1: https://whatpwacando.today/contacts</p>
@@ -28,18 +28,29 @@
     
     <!-- Method -->
     <script>
-      document.querySelector('#find-me').addEventListener('click', async () => {
-        const contacts = await navigator.contacts.select(['name', 'email'], {multiple: true});
-
-        if (!contacts.length) {
-          // No contacts were selected in the picker.
-          return;
+      function readContacts() {
+        var api = (navigator.contacts || navigator.mozContacts);
+  
+        if (api && !!api.select) {
+          api.select(['name', 'email'], { multiple: true })
+            .then(function (contacts) {
+              consoleLog('Found ' + contacts.length + ' contacts.');
+              if (contacts.length) {
+                consoleLog('First contact: ' + contacts[0].name + ' (' + contacts[0].email + ')');
+              }
+            })
+            .catch(function (err) {
+              consoleLog('Fetching contacts failed: ' + err.name);
+            });
+        } else {
+          consoleLog('Contacts API not supported.');
         }
-
-        // Use the names and e-mail addresses in |contacts| to populate the
-        // recipients field in the website’s UI.
-        populateRecipients(contacts);
-      });
+      }
+  
+      function consoleLog(data) {
+        var logElement = document.getElementById('log');
+        logElement.innerHTML += data + '\n';
+      }
     </script>
   </body>
 </html>
