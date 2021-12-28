@@ -20,81 +20,49 @@
         <h3>Accelerometer</h3>  
         <a class="btn btn-danger" role="button" id="start_demo">Start</a><br>
         
-        <h4>Num. of datapoints: <span id="num-observed-events">0</span></h4>
-        <h4>Accelerometer</h4>
-        <ul>
-          <li>
-            X-axis: <span id="Accelerometer_x">0</span><span> m/s<sup>2</sup></span>
-          </li>
-          <li>
-            Y-axis: <span id="Accelerometer_y">0</span><span> m/s<sup>2</sup></span>
-          </li>
-          <li>
-            Z-axis: <span id="Accelerometer_z">0</span><span> m/s<sup>2</sup></span>
-          </li>
-          <li>Data Interval: <span id="Accelerometer_i">0</span><span> ms</span></li>
-        </ul>
-
-        <h4>Accelerometer including gravity</h4>
-
-        <ul>
-          <li>
-            X-axis: <span id="Accelerometer_gx">0</span><span> m/s<sup>2</sup></span>
-          </li>
-          <li>
-            Y-axis: <span id="Accelerometer_gy">0</span><span> m/s<sup>2</sup></span>
-          </li>
-          <li>
-            Z-axis: <span id="Accelerometer_gz">0</span><span> m/s<sup>2</sup></span>
-          </li>
-        </ul>
+        <section>
+          Accelerometer detected? <span id="acc"></span><br>
+          alpha X: <input type="text" readonly id="x" value="" /><br>
+          alpha Y: <input type="text" readonly id="y" value="" /><br>
+          alpha Z: <input type="text" readonly id="z" value="" /><br>
+        </section>
         
-        <p>Sumber: ???</p>
+        <p>Sumber: https://codepen.io/lehollandaisvolant/pen/prgZyB</p>
       </div>      
     </div>
 
     <!-- method -->
     <script>
-      function incrementEventCount() {
-        let counterElement = document.getElementById("num-observed-events");
-        let eventCount = parseInt(counterElement.innerHTML);
-        counterElement.innerHTML = eventCount + 1;
-      }
-
-      function updateFieldIfNotNull(fieldName, value, precision = 10) {
-        if (value != null) document.getElementById(fieldName).innerHTML = value.toFixed(precision);
-      }
-
-      function handleMotion(event) {
-        updateFieldIfNotNull("Accelerometer_gx", event.accelerationIncludingGravity.x);
-        updateFieldIfNotNull("Accelerometer_gy", event.accelerationIncludingGravity.y);
-        updateFieldIfNotNull("Accelerometer_gz", event.accelerationIncludingGravity.z);
-
-        updateFieldIfNotNull("Accelerometer_x", event.acceleration.x);
-        updateFieldIfNotNull("Accelerometer_y", event.acceleration.y);
-        updateFieldIfNotNull("Accelerometer_z", event.acceleration.z);
-
-        updateFieldIfNotNull("Accelerometer_i", event.interval, 2);
-        incrementEventCount();
-      }
-  
-      let is_running = false;
       let demo_button = document.getElementById("start_demo");
       demo_button.onclick = function (e) {
-        e.preventDefault();
-  
-        if (is_running) {
-          window.removeEventListener("devicemotion", handleMotion);
-          demo_button.innerHTML = "Start demo";
-          demo_button.classList.add("btn-danger");
-          demo_button.classList.remove("btn-success");
-          is_running = false;
-        } else {
-          window.addEventListener("devicemotion", handleMotion);
-          document.getElementById("start_demo").innerHTML = "Stop demo";
-          demo_button.classList.remove("btn-danger");
-          demo_button.classList.add("btn-success");
-          is_running = true;
+        if (window.DeviceMotionEvent == undefined) {
+          //No accelerometer is present. Use buttons. 
+          document.querySelector("#acc").textContent = "NO";
+          document.querySelector("#acc").className = "no";
+
+        }
+        else {
+          document.querySelector("#acc").textContent = "YES";
+          document.querySelector("#acc").className = "yes";
+          window.addEventListener("devicemotion", accelerometerUpdate, true);
+        }
+
+
+        function accelerometerUpdate(event) {
+          var aX = event.accelerationIncludingGravity.x*10;
+          var aY = event.accelerationIncludingGravity.y*10;
+          var aZ = event.accelerationIncludingGravity.z*10;
+
+          document.querySelector("#x").value = aX;
+          document.querySelector("#y").value = aY;
+          document.querySelector("#z").value = aZ;
+
+          // ix aY is negative, switch rotation
+          if (aY <0) {
+            aX = -aX - 180;
+          }
+          document.querySelector("#block").style.transform="rotate("+aX+"deg)";
+
         }
       };
     </script>
