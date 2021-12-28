@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Camera</title>
+    <title>Contact Book</title>
 
     <!-- panggil css -->
     <link rel="stylesheet" href="/assets/css/main.css">
@@ -17,32 +17,12 @@
       <a class="btn btn-primary" href="/index.html" role="button">Kembali</a><br>
 
       <div class="text-center">
-        <h3>Camera</h3>
-        <h4 id="error"></h4><br>
-        <a class="btn btn-danger" role="button" onclick="startVideo()">Open Camera</a><br>
-        <video autoplay="true" id="videoElement"></video><br>
+        <h3>Contact Book</h3>
+        <h3>Firefox tidak men-support akses Contact Book</h3>
         
-        <p>Sumber 1: https://www.simicart.com/blog/pwa-camera-access/</p>
-        <p>Sumber 2: https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia</p>
+        <p>Sumber 1: https://whatpwacando.today/contacts</p>
+        <p>Sumber 2: https://dev.to/niscontractor/most-frequently-asked-questions-in-pwa-4mg9</p>
       </div>
     </div>
-
-    <!-- method -->
-    <script>
-      var video = document.querySelector("#videoElement");
-      var x = document.getElementById("error");
-
-      function startVideo() {
-        if (navigator.mediaDevices.getUserMedia) {
-          navigator.mediaDevices.getUserMedia({
-            video: true
-          }).then(function (stream) {
-            video.srcObject = stream;
-          }).catch(function (err0r) {
-            x.innerHTML = "Something went wrong!";
-          });
-        }
-      }
-    </script>
   </body>
 </html>

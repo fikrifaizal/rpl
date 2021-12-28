@@ -18,29 +18,43 @@
 
       <div class="text-center">
         <h3>Geo-location</h3>  
-        <a class="btn btn-danger" role="button" onclick="getLocation()">Cari Lokasi</a><br>    
-        <h4 id="data"></h4><br>
+        <a class="btn btn-danger" role="button" id="find-me">Cari Lokasi</a><br>    
+        <h4 id="status"></h4><br>
+        <a id = "map-link" target="_blank"></a>
         
-        <p>Sumber: https://www.simicart.com/blog/pwa-geolocation/</p>
+        <p>Sumber: https://developer.mozilla.org/en-US/docs/Web/API/Geolocation_API</p>
       </div>      
     </div>
 
     <!-- method -->
     <script>
-      var x = document.getElementById("data");
+      document.querySelector('#find-me').addEventListener('click', geoFindMe);
+      function geoFindMe() {
+        const status = document.querySelector('#status');
+        const mapLink = document.querySelector('#map-link');
 
-      function getLocation() {
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(showPosition);
-        } else {
-          x.innerHTML = "Geolocation is not supported by this browser.";
+        mapLink.href = '';
+        mapLink.textContent = '';
+
+        function success(position) {
+          const latitude  = position.coords.latitude;
+          const longitude = position.coords.longitude;
+
+          status.textContent = '';
+          mapLink.href = `https://www.openstreetmap.org/#map=18/${latitude}/${longitude}`;
+          mapLink.textContent = `Latitude: ${latitude} °, Longitude: ${longitude} °`;
         }
-      }
 
-      function showPosition(position) {
-        x.innerHTML =
-          "garis lintang: " + position.coords.latitude +
-          "<br>garis bujur: " + position.coords.longitude;
+        function error() {
+          status.textContent = 'Unable to retrieve your location';
+        }
+
+        if(!navigator.geolocation) {
+          status.textContent = 'Geolocation is not supported by your browser';
+        } else {
+          status.textContent = 'Locating…';
+          navigator.geolocation.getCurrentPosition(success, error);
+        }
       }
     </script>
   </body>
