@@ -18,15 +18,12 @@
 
       <div class="text-center">
         <h3>Magnetometer</h3>  
-        <a class="btn btn-danger" role="button" id="start_demo">Start</a><br>
     
-        <h4>Num. of datapoints: <span id="num-observed-events">0</span></h4>
-        <h4>Gyroscope</h4>
-        <ul>
-          <li>X-axis: <span id="Gyroscope_x">0</span><span>&deg;/s</span></li>
-          <li>Y-axis: <span id="Gyroscope_y">0</span><span>&deg;/s</span></li>
-          <li>Z-axis: <span id="Gyroscope_z">0</span><span>&deg;/s</span></li>
-        </ul>
+        <section>
+          Magnetic field along the X-axis: <input type="text" readonly id="x" value="" /><br>
+          Magnetic field along the Y-axis: <input type="text" readonly id="y" value="" /><br>
+          Magnetic field along the Z-axis: <input type="text" readonly id="z" value="" /><br>
+        </section>
         
         <p>Sumber: https://developer.mozilla.org/en-US/docs/Web/API/DeviceMotionEvent/rotationRate#syntax</p>
       </div>      
@@ -34,37 +31,18 @@
 
     <!-- method -->
     <script>
+      let magSensor = new Magnetometer({frequency: 60});
 
-      function updateFieldIfNotNull(fieldName, value, precision = 10) {
-        if (value != null) document.getElementById(fieldName).innerHTML = value.toFixed(precision);
-      }
-
-      function handleMotion(event) {  
-        updateFieldIfNotNull("Gyroscope_z", event.rotationRate.alpha);
-        updateFieldIfNotNull("Gyroscope_x", event.rotationRate.beta);
-        updateFieldIfNotNull("Gyroscope_y", event.rotationRate.gamma);
-        incrementEventCount();
-      }
-  
-      let is_running = false;
-      let demo_button = document.getElementById("start_demo");
-      demo_button.onclick = function (e) {
-        e.preventDefault();
-  
-        if (is_running) {
-          window.removeEventListener("devicemotion", handleMotion);
-          demo_button.innerHTML = "Start demo";
-          demo_button.classList.add("btn-danger");
-          demo_button.classList.remove("btn-success");
-          is_running = false;
-        } else {
-          window.addEventListener("devicemotion", handleMotion);
-          document.getElementById("start_demo").innerHTML = "Stop demo";
-          demo_button.classList.remove("btn-danger");
-          demo_button.classList.add("btn-success");
-          is_running = true;
-        }
-      };
+      magSensor.addEventListener('reading', e => {
+        var aX = magSensor.x;
+        var aY = magSensor.y;
+        var aZ = magSensor.z;
+        
+        document.querySelector("#x").value = aX;
+        document.querySelector("#y").value = aY;
+        document.querySelector("#z").value = aZ;
+      });
+      magSensor.start();
     </script>
   </body>
 </html>
