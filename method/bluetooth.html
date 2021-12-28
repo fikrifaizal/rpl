@@ -19,15 +19,17 @@
       <div class="text-center">
         <h3>Bluetooth</h3>
         <a class="btn btn-danger" role="button" onclick="readBatteryLevel()">Cek Level Baterai dengan Bluetooth</a><br>
+        <h4 id="error"></h4><br>
         
-        <p>Sumber: ???</p>
+        <p>Sumber: https://whatpwacando.today/bluetooth</p>
       </div>
     </div>
 
     <!-- method -->
     <script>
       function readBatteryLevel() {
-        var $target = document.getElementById('target');
+        var $target = document.getElementById('error');
+
         if (!('bluetooth' in navigator)) {
           $target.innerText = 'Bluetooth API not supported.';
           return;
