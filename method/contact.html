@@ -18,11 +18,28 @@
 
       <div class="text-center">
         <h3>Contact Book</h3>
+        <a class="btn btn-danger" role="button" id="find-me">Cari Lokasi</a><br>    
         <h3>Firefox tidak men-support akses Contact Book</h3>
         
         <p>Sumber 1: https://whatpwacando.today/contacts</p>
         <p>Sumber 2: https://dev.to/niscontractor/most-frequently-asked-questions-in-pwa-4mg9</p>
       </div>
     </div>
+    
+    <!-- Method -->
+    <script>
+      document.querySelector('#find-me').addEventListener('click', async () => {
+        const contacts = await navigator.contacts.select(['name', 'email'], {multiple: true});
+
+        if (!contacts.length) {
+          // No contacts were selected in the picker.
+          return;
+        }
+
+        // Use the names and e-mail addresses in |contacts| to populate the
+        // recipients field in the website’s UI.
+        populateRecipients(contacts);
+      });
+    </script>
   </body>
 </html>
