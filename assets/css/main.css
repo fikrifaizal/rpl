@@ -1,9 +1,10 @@
 body {
   background-color: #edf2f7;
+  scroll-behavior: smooth;
 }
 
 .content {
-  padding: 20px;
+  padding: 10px;
 }
 
 .btn {
@@ -41,6 +42,17 @@ body {
 #acc.yes {
 	color: green;
 }
+
 #acc.no {
 	color: red;
+}
+
+@media (min-width: 992px) {
+  body {
+    overflow: auto !important;
+  }
+  
+  .content {
+    padding: 20px;
+  }
 }
