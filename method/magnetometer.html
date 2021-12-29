@@ -37,14 +37,13 @@
         let magSensor = new Magnetometer({frequency: 60});
 
         magSensor.addEventListener('reading', e => {          
-          var x = magSensor.x
-          var y = magSensor.y
-          var z = magSensor.z
+          var x = magSensor.x;
+          var y = magSensor.y;
+          var z = magSensor.z;
 
-
-          document.getElementById("mag-x").innerHTML = x
-          document.getElementById("mag-y").innerHTML = y
-          document.getElementById("mag-z").innerHTML = z
+          document.getElementById("mag-x").innerHTML = x;
+          document.getElementById("mag-y").innerHTML = y;
+          document.getElementById("mag-z").innerHTML = z;
         });
         magSensor.start();
       }
